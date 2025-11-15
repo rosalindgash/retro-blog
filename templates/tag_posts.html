@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}#{{ tag }} | Rosalind R. Gash{% endblock %}
+{% block page_id %}tag-posts-page{% endblock %}
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+  <section class="tag-list">
+    <h1 class="year-header">Posts tagged <code>#{{ tag }}</code></h1>
+
+    {% for year, posts in posts.items() %}
+      <h2 class="archive-year">{{ year }}</h2>
+
+      <div class="archive-flex-list">
+        {% for post in posts %}
+        <div class="post-row">
+          <div class="post-title">
+            <a href="/post/{{ post['slug'] }}">{{ post['title'] }}</a>
+          </div>
+          <div class="post-date">
+            {{ post['created_at'][:10] }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </section>
+
+  {% if posts|length > 15 %}
+    <div class="pagination">
+      {% if page > 1 %}
+        <a href="{{ url_for('posts_by_tag', tag_name=tag, page=page-1) }}">Previous</a>
+      {% endif %}
+      <span>Page {{ page }} of {{ total_pages }}</span>
+      {% if page < total_pages %}
+        <a href="{{ url_for('posts_by_tag', tag_name=tag, page=page+1) }}">Next</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Uploaded Images | Rosalind R. Gash{% endblock %}
+{% block page_id %}uploads-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+<section class="page-content uploads-page-content">
+  <h1>Uploaded Images</h1>
+  <p>These are the images you've uploaded. Click the browser's back button to return to your dashboard.</p>
+
+  <div class="image-gallery">
+    {% for image_url in images %}
+      <div class="thumbnail-wrapper">
+        <img src="{{ image_url }}" alt="Uploaded image">
+        <form action="{{ url_for('delete_image', filename=image_url.split('/')[-1]) }}" method="post">
+          <button type="submit" class="image-delete-button" onclick="return confirm('Are you sure you want to delete this image?');">Delete</button>
+        </form>
+      </div>
+    {% else %}
+      <p>No images found.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

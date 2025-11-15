@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Uploaded Images | Rosalind R. Gash{% endblock %}
+{% block page_id %}uploads-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+ <section class="page-content uploads-page-content">
+  <h1>Uploaded Images</h1>
+  <p>These are the images you've uploaded. Click the browser's back button to return to your dashboard.</p>
+
+  <div class="image-gallery">
+    {% for image in images %}
+     <div class="thumbnail-wrapper">
+      <img src="{{ image }}" alt="Uploaded image">
+     </div>
+    {% endfor %}
+  </div>
+ </section>
+{% endblock %}
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Rosalind R. Gash{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_dashboard_merged.css') }}?v=1">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QXMNG5M0S"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4QXMNG5M0S');
+  </script>
+</head>
+{% block extra_scripts %}{% endblock %}
+<body id="{% block body_id %}main-content{% endblock %}" class="{% block body_class %}blog-page{% endblock %}">
+  <div class="page-container">
+    <header>
+      <div class="header-bar">
+        <div class="terminal-brand">
+          {% if request.path.startswith('/edit') %}
+           <span class="post-title">&gt; edit post</span><span class="cursor">|</span>
+          {% elif request.path.startswith('/new') %}
+           <span class="post-title">&gt; new post</span><span class="cursor">|</span>
+          {% elif request.path.startswith('/blog') or request.path.startswith('/tag') or request.path.startswith('/archive') or request.path == '/archives' or request.path.startswith('/post') %}
+           <span class="post-title">&gt; terminal</span><span class="cursor">|</span>
+          {% else %}
+           <span class="name-title">Rosalind R. Gash</span>
+          {% endif %}
+        </div>
+
+
+        {% if request.path.startswith('/edit') or request.path.startswith('/new') %}
+         <nav>
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+         </nav>
+        {% else %}
+         <nav>
+          <!-- your full nav menu here -->
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/portfolio">Portfolio</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+         </nav>
+        {% endif %}
+
+      </div>
+    </header>
+
+   <main class="main-content">
+     {% block content %}{% endblock %}
+   </main>
+
+
+    <footer>
+      <p>&copy; 2025 Rosalind R. Gash. All rights reserved. | <a href="{{ url_for('login') }}">Admin</a></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Rosalind R. Gash{% endblock %}
+
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+  <div class="page-content">
+  <section class="hero-with-image">
+    <img src="{{ url_for('static', filename='images/cartoon-me.jpg') }}" alt="Cartoon portrait of Rosalind" class="hero-image" />
+    <div class="hero-text">
+      <h1>Hi, I’m Rosalind!</h1>
+      <p>I built this space to share my work, my voice, and the things I’m still exploring.</p>
+    </div>
+  </section>
+</div>
+{% endblock %}

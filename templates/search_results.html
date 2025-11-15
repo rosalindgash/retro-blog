@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Search Results | Rosalind R. Gash{% endblock %}
+{% block page_id %}search-results-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+<section class="page-content">
+  <h1>Search Results</h1>
+
+{% if posts %}
+  <ul id="search-results-page">
+    {% for post in posts %}
+      <li>
+        <a href="{{ url_for('view_post', slug=post['slug']) }}">{{ post['title'] }}</a><br />
+        <small>{{ post['created_at'] }}</small><br />
+        {% if post['first_image'] %}
+          <img src="{{ post['first_image'] }}" alt="Post image" class="thumbnail">
+        {% endif %}
+        <p>{{ post['excerpt']|safe }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No results found for "{{ query }}".</p>
+{% endif %}
+</section>
+{% endblock %}

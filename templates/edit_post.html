@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Edit Post | Rosalind R. Gash{% endblock %}
+{% block page_id %}edit-page{% endblock %}
+{% block body_class %}edit-post-page{% endblock %}
+{% block body_id %}edit-post-page{% endblock %}
+
+{% block content %}
+   <div class="form-container">
+    <form method="POST">    
+      <label for="status">Status:</label><br />
+      <select id="status" name="status">
+        <option value="draft" {% if post['status'] == 'draft' %}selected{% endif %}>Draft</option>
+        <option value="published" {% if post['status'] == 'published' %}selected{% endif %}>Published</option>
+      </select><br /><br />
+
+      <label for="title">Title:</label><br />
+      <input type="text" id="title" name="title" value="{{ post['title'] }}" /><br /><br />
+
+      <label for="slug">Custom URL Slug:</label><br />
+      <input type="text" id="slug" name="slug" value="{{ post['slug'] }}" /><br /><br />
+
+      <label for="tags">Tags (comma separated):</label><br />
+      <input type="text" id="tags" name="tags" value="{{ post['tags'] }}" /><br /><br />
+
+      <label for="content">Content:</label><br />
+      <textarea id="content" name="content" rows="15">{{ post['content'] }}</textarea><br /><br />
+
+      <div class="button-row">
+        <button type="submit" class="update-button">Update</button>
+        <a href="{{ url_for('dashboard') }}" class="cancel-link">Cancel</a>
+      </div>
+    </form>
+   </div> 
+{% endblock %}
+
+
+

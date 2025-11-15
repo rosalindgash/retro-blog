@@ -1,0 +1,50 @@
+<!-- templates/404.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='images/cookie-the-pom.jpg') }}'); /* Correct path */
+            background-size: cover; /* Ensure the image covers the entire page */
+            background-position: center center; /* Center the background image */
+            color: #fff; /* Set text color */
+            text-align: center; /* Center the content */
+            font-family: Arial, sans-serif; /* Optional: choose your preferred font */
+            height: 100vh; /* Make sure it takes full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-page {
+            background: rgba(0, 0, 0, 0.5); /* Optional: adds transparency behind text for better visibility */
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        a {
+            color: #008a8a; /* Example link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-page">
+    <h1>Oops! The developer ate this page.</h1>
+    <h2>It cannot be found.</h2>
+    <p><a href="{{ url_for('home') }}">Click here to go back to the homepage.</a></p>
+</div>
+
+</body>
+</html>

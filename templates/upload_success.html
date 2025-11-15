@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Success | Rosalind R. Gash{% endblock %}
+{% block page_id %}upload-success-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+  <section class="page-content">
+    <h1>✅ Image Uploaded!</h1>
+
+    <img src="{{ file_url }}" alt="Uploaded image" style="max-width: 300px;"><br><br>
+    <p>Use this in your post:</p>
+    <code>&lt;img src="{{ file_url }}" alt="" /&gt;</code><br><br>
+    <a href="{{ url_for('upload_image') }}">Upload another</a>
+{% endblock %}

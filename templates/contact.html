@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Contact | Rosalind R. Gash{% endblock %}
+{% block page_id %}contact-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+{% block body_id %}contact-page{% endblock %}
+
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+     <ul class="flashes">
+       {% for message in messages %}
+        <li>{{ message }}</li>
+       {% endfor %}
+     </ul>
+    {% endif %}
+  {% endwith %}
+
+  <main id="contact-page">
+    <h1 class="page-title">Contact Me</h1>
+    <form action="{{ url_for('contact') }}" method="post">
+     <label for="name">Name:</label><br />
+     <input type="text" id="name" name="name" required><br /><br />
+
+     <label for="email">Email:</label><br />
+     <input type="email" id="email" name="email" required><br /><br />
+
+     <label for="message">Message:</label><br />
+     <textarea id="message" name="message" rows="10" required></textarea><br /><br />
+
+     <button type="submit" class="submit-button">Send Message</button>
+    </form>
+  </main>
+{% endblock %}

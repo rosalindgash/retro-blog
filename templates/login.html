@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Rosalind R. Gash{% endblock %}
+{% block page_id %}login-page{% endblock %}
+{% block body_class %}static-page{% endblock %}
+
+{% block content %}
+  <section class="page-content">
+    <h1>Login</h1>
+
+    {% if error %}
+      <p class="form-error">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" class="login-form">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Rosalind R. Gash{% endblock %}
+{% block body_id %}dashboard-page{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+  <aside class="dashboard-sidebar">
+    <p><a href="{{ url_for('new_post') }}">📝 New Post</a></p>
+    <p><a href="{{ url_for('upload_image') }}">📄 Upload Image</a></p>
+    <p><a href="{{ url_for('view_uploads') }}">🖼️ View Images</a></p>
+  </aside>
+
+  <section class="page-content">
+    <h1>Dashboard</h1>
+
+    {% if posts %}
+      <div class="dashboard-posts">
+        {% for post in posts %}
+         <div class="dashboard-post-block">
+          <div><strong>{{ post['title'] }}</strong></div>
+          <div><small>Posted on {{ post['created_at'][:10] }}</small></div>
+          <div>
+            <small>Tags: {{ post['tags'] }}</small><br />
+            <small>Format: {{ post['format']|capitalize }}</small><br />
+            <small>
+              Status:
+              {% if post['status'] == 'published' %}
+                <span class="status published">Published</span>
+              {% else %}
+                <span class="status draft">Draft</span>
+              {% endif %}
+            </small>
+          </div>
+          <div class="dashboard-post-links">
+           <a href="/edit/{{ post['slug'] }}">✏️ Edit</a> |
+           <form action="{{ url_for('delete', slug=post['slug']) }}" method="POST" style="display: inline;">
+            <button type="submit" style="background: none; border: none; color: #008a8a; cursor: pointer; padding: 0; text-decoration: underline;">🗑️ Delete</button>
+           </form> |
+           <a href="/post/{{ post['slug'] }}">🔗 View</a>
+         </div>
+      </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No posts available.</p>
+    {% endif %}
+
+    {% if page and total_pages %}
+      <div class="pagination" style="margin-top: 2rem;">
+        {% if page > 1 %}
+          <a href="{{ url_for('dashboard', page=page-1) }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page }} of {{ total_pages }}</span>
+        {% if page < total_pages %}
+          <a href="{{ url_for('dashboard', page=page+1) }}">Next</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

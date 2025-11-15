@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Archives | Rosalind R. Gash{% endblock %}
+{% block page_id %}archives-page{% endblock %}
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+  <section class="archive-list">
+    <h1 class="year-header">Archives</h1>
+
+    {% for year, posts in archives.items() %}
+      <h2 class="archive-year">{{ year }}</h2>
+
+      <div class="archive-flex-list">
+        {% for post in posts %}
+        <div class="post-row">
+          <div class="post-title">
+            <a href="/post/{{ post['slug'] }}">{{ post['title'] }}</a>
+          </div>
+          <div class="post-date">
+            {{ post['created_at'][:10] }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}

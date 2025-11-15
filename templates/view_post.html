@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post['title'] }} | Rosalind R. Gash{% endblock %}
+{% block page_id %}post-page{% endblock %}
+{% block body_class %}view-post-page{% endblock %}
+{% block body_id %}view-post-page{% endblock %}
+
+{% block headers %}
+    <title>{{ post['title'] }}</title>
+
+    {% set first_paragraph = (post['content'] | strip_html)[:200] %}
+    <meta name="description" content="{{ first_paragraph }}">
+
+    {% set tag_list = post['tags'].split(',') | map('trim') | select('string') | list %}
+    <meta name="keywords" content="{{ tag_list|join(', ') }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ post['title'] }}">
+    <meta property="og:description" content="{{ first_paragraph }}">
+    <meta property="og:url" content="{{ url_for('view_post', slug=post['slug'], _external=True) }}">
+    {% set first_image = post['content'] | extract_first_image %}
+    {% if first_image %}
+        <meta property="og:image" content="{{ first_image }}">
+    {% else %}
+        <meta property="og:image" content="{{ url_for('static', filename='images/default.png', _external=True) }}">
+    {% endif %}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ post['title'] }}">
+    <meta name="twitter:description" content="{{ first_paragraph }}">
+    {% if first_image %}
+        <meta name="twitter:image" content="{{ first_image }}">
+    {% else %}
+        <meta name="twitter:image" content="{{ url_for('static', filename='images/default.png', _external=True) }}">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+  <article class="post">
+    <h1 class="post-title">{{ post['title'] }}</h1>
+    <time class="post-date">{{ post['created_at'][:10] }}</time>
+
+    <div class="post-content">
+      {{ post['content'] | safe }}
+    </div>
+    
+    {% if tag_list %}
+      <p><strong>Tags:</strong>
+        {% for tag in tag_list if tag %}
+          <a href="{{ url_for('posts_by_tag', tag_name=tag) }}" class="tag">{{ tag }}</a>
+        {% endfor %}
+      </p>
+    {% endif %}
+
+    {% if session.get('logged_in') %}
+      <p><a href="{{ url_for('edit', slug=post['slug']) }}" class="edit-link">Edit</a></p>
+    {% endif %}
+  </article>
+{% endblock %}
