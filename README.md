@@ -52,10 +52,12 @@ blog/
 │   ├── models.py
 │   ├── forms.py
 │   └── __init__.py
+├── docs/
+│   └── screenshots/
 ├── instance/
 │   └── blog.db
 ├── venv/ (ignored)
-└── run.py
+└── app.py
 ```
 
 ## ⚙️ Running Locally
